@@ -1,6 +1,7 @@
 
 public class ArrayList implements List
 {
+    //test
     private Object [] myArrayList;
 
     public boolean isEmpty()
