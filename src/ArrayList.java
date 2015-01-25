@@ -37,20 +37,37 @@ public class ArrayList implements List
     public ReturnObject get(int index)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
+        if (validateIndex(index,myObject))
+        {
+            myObject.setMyObject(myArrayList[index]);
+        }
+        return myObject;
+    }
+
+    /**
+     * Method to validate that index provided to update ArrayList is valid
+     * If the index is negative or greater or equal than the size of
+     * the list, then an appropriate error must be returned.
+     * @param index the position at which ArrayList is to be updated
+     * @param myObject ReturnObjectImpl that will record error message if index is not valid
+     * @return true if index is valid and false otherwise
+     */
+    private boolean validateIndex(int index, ReturnObjectImpl myObject)
+    {
         if(isEmpty())
         {
             myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+            return false;
         }
         else if(index>size-1||index <0)
         {
             myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return false;
         }
         else
         {
-            myObject.setMyObject(myArrayList[index]);
+            return true;
         }
-
-        return myObject;
     }
 
     public ReturnObject remove(int index)
@@ -67,7 +84,8 @@ public class ArrayList implements List
     }
     public ReturnObject add(int index, Object item)
     {
-        ReturnObject myObject = new ReturnObjectImpl();
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+        //validateIndex(index,myObject);
 
         size++;
         return myObject;
