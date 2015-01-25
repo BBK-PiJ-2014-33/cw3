@@ -10,7 +10,8 @@ public class ArrayList implements List
     private int size=0;
 
     /**
-     * ArrayList minimum length is 10
+     * ArrayList minimum length is 10. If length of the list needs to exceed 10, list will double each time list boundary
+     * is reached
      */
     public ArrayList()
     {
@@ -40,13 +41,13 @@ public class ArrayList implements List
         {
             myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
         }
-        else if(index>size()-1)
+        else if(index>size-1||index <0)
         {
             myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
         else
         {
-           myObject.setMyObject(myArrayList[index]);
+            myObject.setMyObject(myArrayList[index]);
         }
 
         return myObject;
@@ -54,30 +55,33 @@ public class ArrayList implements List
 
     public ReturnObject remove(int index)
     {
-        ReturnObjectImpl myObject = new ReturnObjectImpl();
-
-        if (!get(index).hasError())
+        ReturnObject myObject = new ReturnObjectImpl();
+        myObject = get(index);
+        for( int i = index; i<=size-1; i++)
         {
-
+            move(index+1,index);
         }
-        else
-        {
-            myObject.setErrorMessage(get(index).getError());
-        }
-
+        myArrayList[size-1] = null;
+        size--;
         return myObject;
     }
     public ReturnObject add(int index, Object item)
     {
         ReturnObject myObject = new ReturnObjectImpl();
 
+        size++;
         return myObject;
     }
     public ReturnObject add(Object item)
     {
         ReturnObject myObject = new ReturnObjectImpl();
 
+        size++;
         return myObject;
+    }
+    private void move(int from, int to)
+    {
+        myArrayList[to] = myArrayList[from];
     }
 
 }
