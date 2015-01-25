@@ -1,12 +1,25 @@
 
 public class ArrayList implements List
 {
-    //test
     private Object [] myArrayList;
+    /**
+     * size is introduced as a field to keep track of size of ArrayList with size being number of non null items in the list
+     * rather than length of ArrayList. It also allows to make implementation of size() method more efficient removing any
+     * need to loop through ArrayList until first null is encountered in order to discover the size of ArrayList
+     */
+    private int size=0;
+
+    /**
+     * ArrayList minimum length is 10
+     */
+    public ArrayList()
+    {
+        myArrayList = new Object[10];
+    }
 
     public boolean isEmpty()
     {
-        if(myArrayList.length==0)
+        if(this.size()==0)
         {
             return true;
         }
@@ -17,7 +30,7 @@ public class ArrayList implements List
     }
     public int size()
     {
-        return myArrayList.length;
+        return size;
     }
 
     public ReturnObject get(int index)
