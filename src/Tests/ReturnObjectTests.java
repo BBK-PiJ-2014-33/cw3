@@ -5,16 +5,15 @@ import static org.junit.Assert.*;
 
 public class ReturnObjectTests {
     @Test
-    public void myReturnObjectTest()
+    public void hasErrorTest()
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
-
-        //test hasError method
 
         /**
          * ReturnObject defaults to no error
          * expect test to return false result
          */
+
         boolean expected = false;
         boolean output = myObject.hasError();
         assertEquals(output, expected);
@@ -27,10 +26,28 @@ public class ReturnObjectTests {
         expected = true;
         output = myObject.hasError();
         assertEquals(output, expected);
+    }
 
-        //test getError method
+    @Test
+    public void getErrorTest() {
 
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+        /**
+         * ReturnObject defaults to no error
+         * expect test to return NO_ERROR result
+         */
+        ErrorMessage expected = ErrorMessage.NO_ERROR;
+        ErrorMessage output = myObject.getError();
+        assertEquals(output, expected);
 
+        /**
+         * set ReturnObject to contain error EMPTY_STRUCTURE
+         * expect test to return EMPTY_STRUCTURE ErrorMessage
+         */
 
+        myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        expected = ErrorMessage.EMPTY_STRUCTURE;
+        output = myObject.getError();
+        assertEquals(output, expected);
     }
 }
