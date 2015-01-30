@@ -3,8 +3,6 @@ import List.*;
 
 public class TestClass {
     public static void main(String[] args) {
-
-        //List.List myList = new List.List.LinkedList();
         List myList = new ArrayList();
         myList.add(3,3);
         myList.add("four");

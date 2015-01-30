@@ -7,14 +7,23 @@ public class ReturnObjectTests {
     @Test
     public void myReturnObjectTest()
     {
-        ReturnObject myObject = new ReturnObjectImpl();
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
         /**
-         * New ReturnObject defaults to no error
-         * We expect test to return false result
+         * ReturnObject defaults to no error
+         * expect test to return false result
          */
         boolean expected = false;
         boolean output = myObject.hasError();
         assertEquals(output, expected);
-        //test success
+
+        /**
+         * set ReturnObject to contain error
+         * expect test to return true result
+         */
+        myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        expected = true;
+        output = myObject.hasError();
+        assertEquals(output, expected);
+
     }
 }

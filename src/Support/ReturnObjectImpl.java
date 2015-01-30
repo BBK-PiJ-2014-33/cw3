@@ -3,11 +3,11 @@ package Support;
 public class ReturnObjectImpl implements ReturnObject
 {
     private Object myObject = new Object();
-    private ErrorMessage myErrorMessage;
+    private ErrorMessage myErrorMessage = ErrorMessage.NO_ERROR;
 
     public boolean hasError()
     {
-        if (myErrorMessage == null)
+        if (myErrorMessage == ErrorMessage.NO_ERROR)
         {
             return false;
         }
