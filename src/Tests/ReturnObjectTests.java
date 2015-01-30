@@ -1,10 +1,7 @@
 package Tests;
-import Support.ErrorMessage;
-import Support.ReturnObjectImpl;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import Support.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 public class ReturnObjectTests {
     @Test
