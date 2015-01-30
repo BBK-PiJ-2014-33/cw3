@@ -1,9 +1,5 @@
 package List;
-
-import Support.ErrorMessage;
-import Support.ObjectNode;
-import Support.ReturnObject;
-import Support.ReturnObjectImpl;
+import Support.*;
 
 public class LinkedList implements List
 {
