@@ -8,6 +8,9 @@ public class ReturnObjectTests {
     public void myReturnObjectTest()
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
+
+        //test hasError method
+
         /**
          * ReturnObject defaults to no error
          * expect test to return false result
@@ -24,6 +27,10 @@ public class ReturnObjectTests {
         expected = true;
         output = myObject.hasError();
         assertEquals(output, expected);
+
+        //test getError method
+
+
 
     }
 }
