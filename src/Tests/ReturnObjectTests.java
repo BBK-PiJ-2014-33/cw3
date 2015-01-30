@@ -1,7 +1,10 @@
 package Tests;
-import Support.*;
-import org.junit.*;
-import static org.junit.Assert.*;
+import Support.ErrorMessage;
+import Support.ReturnObjectImpl;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ReturnObjectTests {
     @Test
@@ -49,5 +52,30 @@ public class ReturnObjectTests {
         expected = ErrorMessage.EMPTY_STRUCTURE;
         output = myObject.getError();
         assertEquals(output, expected);
+    }
+
+    @Test
+    public void getReturnValueTest()
+    {
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+
+        /**
+         * test that correct Object is returned when operation is successful
+         */
+
+        String expected = "Test";
+        Object output;
+        myObject.setMyObject("Test");
+        output = myObject.getReturnValue();
+        assertEquals(output, expected);
+
+        /**
+         * test that null is returned if there has been error
+         */
+
+        myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        assertNull(myObject.getReturnValue());
+
+
     }
 }

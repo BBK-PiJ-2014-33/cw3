@@ -32,7 +32,7 @@ public class ReturnObjectImpl implements ReturnObject
     {
         if(hasError())
         {
-            return getError();
+            return null;
         }
         else return myObject;
     }
