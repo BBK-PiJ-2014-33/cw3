@@ -1,17 +1,21 @@
+package List;
+
+import Support.ErrorMessage;
+import Support.ReturnObject;
+import Support.ReturnObjectImpl;
 
 public class ArrayList implements List
 {
     private Object [] myArrayList;
     /**
-     * size is introduced as a field to keep track of size of ArrayList with size being number of non null items in the list
-     * rather than length of ArrayList. It also allows to make implementation of size() method more efficient removing any
-     * need to loop through ArrayList until first null is encountered in order to discover the size of ArrayList
+     * size is introduced as a field to keep track of size of List.List.ArrayList with size being number of non null items in the list
+     * rather than length of List.List.ArrayList. It also allows to make implementation of size() method more efficient removing any
+     * need to loop through List.List.ArrayList until first null is encountered in order to discover the size of List.List.ArrayList
      */
     private int size=0;
 
     /**
-     * ArrayList minimum length is 10. If length of the list needs to exceed 10, list will double each time list boundary
-     * is reached
+     * List.List.ArrayList minimum length is 10. If length of the list needs to exceed 10, list will double each time list is full
      */
     public ArrayList()
     {
@@ -37,6 +41,7 @@ public class ArrayList implements List
     public ReturnObject get(int index)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
+
         if (validateIndex(index,myObject))
         {
             myObject.setMyObject(myArrayList[index]);
@@ -45,11 +50,11 @@ public class ArrayList implements List
     }
 
     /**
-     * Method to validate that index provided to update ArrayList is valid
+     * Method to validate that index provided to update List.List.ArrayList is valid
      * If the index is negative or greater or equal than the size of
      * the list, then an appropriate error must be returned.
-     * @param index the position at which ArrayList is to be updated
-     * @param myObject ReturnObjectImpl that will record error message if index is not valid
+     * @param index the position at which List.List.ArrayList is to be updated
+     * @param myObject Support.ReturnObjectImpl that will record error message if index is not valid
      * @return true if index is valid and false otherwise
      */
     private boolean validateIndex(int index, ReturnObjectImpl myObject)

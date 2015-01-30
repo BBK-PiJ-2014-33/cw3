@@ -1,3 +1,5 @@
+package Support;
+
 public enum ErrorMessage {
     /**
      * No error. 

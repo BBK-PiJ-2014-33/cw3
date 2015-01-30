@@ -1,4 +1,4 @@
-import java.util.Objects;
+package Support;
 
 public class ObjectNode {
     private Object myObject;

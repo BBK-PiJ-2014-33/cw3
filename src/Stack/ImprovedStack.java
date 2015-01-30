@@ -1,16 +1,18 @@
+package Stack;
+
 /**
  * An implementation of a stack with additional methods. 
  * 
- * Classes implementing this interface must use a {@see List} as the
+ * Classes implementing this interface must use a {@see List.List} as the
  * underlying data structure to store the elements on the stack. 
  * 
  * Not all operations on a stack will always be successful. For
  * example, a programmer may try to pop an element from an empty
  * stack. Since we hace not covered exceptions yet, we need another
  * mechanism to report errors. In order to do that, methods of this
- * list will return a {@see ReturnObject} that will contain either an
+ * list will return a {@see Support.ReturnObject} that will contain either an
  * object or an error value of the right kind (as defined in {@see
- * ErrorMessage}).
+ * Support.ErrorMessage}).
  * 
  * @author PiJ
  */

@@ -1,3 +1,5 @@
+package Support;
+
 /**
  * A wrapper containing either an object (the result of an operation
  * on a data structure) or an error value.
@@ -22,7 +24,7 @@ public interface ReturnObject {
 	public ErrorMessage getError();
 
 	/**
-	 * Returns the object wrapped in this ReturnObject, i.e. the
+	 * Returns the object wrapped in this Support.ReturnObject, i.e. the
 	 * result of the operation if it was successful, or null if
 	 * there has been error.
 	 * 

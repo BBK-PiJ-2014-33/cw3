@@ -1,3 +1,7 @@
+package List;
+
+import Support.ReturnObject;
+
 /**
  * A list is a collection of objects that are sorted and can be
  * accessed by index. The first element in the list is at index 0.
@@ -14,8 +18,8 @@
  * list, or from a position where there is nothing. Since we have not
  * covered exceptions yet, we need another mechanism to report
  * errors. In order to do that, methods of this list will return a
- * {@see ReturnObject} that will contain either an object or an error
- * value of the right kind (as defined in {@see ErrorMessage}). 
+ * {@see Support.ReturnObject} that will contain either an object or an error
+ * value of the right kind (as defined in {@see Support.ErrorMessage}).
  * 
  * @author PiJ
  */
@@ -42,7 +46,7 @@ public interface List {
 	 * 
 	 * @param index the position in the list of the item to be retrieved
 	 * @return the element or an appropriate error message, 
-	 *         encapsulated in a ReturnObject
+	 *         encapsulated in a Support.ReturnObject
 	 */
 	public ReturnObject get(int index);
 
@@ -56,7 +60,7 @@ public interface List {
 	 * 
 	 * @param index the position in the list of the item to be retrieved
 	 * @return the element or an appropriate error message, 
-	 *         encapsulated in a ReturnObject
+	 *         encapsulated in a Support.ReturnObject
 	 */
 	public ReturnObject remove(int index);
 
@@ -75,7 +79,7 @@ public interface List {
 	 * @param index the position at which the item should be inserted in
 	 *              the list
 	 * @param item the value to insert into the list
-	 * @return an ReturnObject, empty if the operation is successful
+	 * @return an Support.ReturnObject, empty if the operation is successful
 	 *         the item added or containing an appropriate error message
 	 */
 	public ReturnObject add(int index, Object item);
@@ -88,7 +92,7 @@ public interface List {
 	 * returned.
 	 * 
 	 * @param item the value to insert into the list
-	 * @return an ReturnObject, empty if the operation is successful
+	 * @return an Support.ReturnObject, empty if the operation is successful
 	 *         the item added or containing an appropriate error message
 	 */
 	public ReturnObject add(Object item);

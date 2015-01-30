@@ -1,3 +1,10 @@
+package List;
+
+import Support.ErrorMessage;
+import Support.ObjectNode;
+import Support.ReturnObject;
+import Support.ReturnObjectImpl;
+
 public class LinkedList implements List
 {
     private ObjectNode myFirstObject;

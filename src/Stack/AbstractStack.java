@@ -1,3 +1,7 @@
+package Stack;
+
+import List.List;
+
 /**
  * An implementation of a stack that uses a {@List} as the underlying
  * data structure.
@@ -6,9 +10,9 @@
  * example, a programmer may try to pop an element from an empty
  * stack. Since we hace not covered exceptions yet, we need another
  * mechanism to report errors. In order to do that, methods of this
- * list will return a {@see ReturnObject} that will contain either an
+ * list will return a {@see Support.ReturnObject} that will contain either an
  * object or an error value of the right kind (as defined in {@see
- * ErrorMessage}).
+ * Support.ErrorMessage}).
  * 
  * @author PiJ
  */
