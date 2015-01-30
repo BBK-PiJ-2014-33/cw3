@@ -15,5 +15,6 @@ public class ReturnObjectTests {
         boolean expected = false;
         boolean output = myObject.hasError();
         assertEquals(output, expected);
+        //test success
     }
 }
