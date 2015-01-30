@@ -1,7 +1,5 @@
 package List;
-import Support.ErrorMessage;
-import Support.ReturnObject;
-import Support.ReturnObjectImpl;
+import Support.*;
 
 public class ArrayList implements List
 {
@@ -47,7 +45,11 @@ public class ArrayList implements List
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
 
-        if (validateIndex(index,myObject))
+        if(isEmpty())
+        {
+            myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        else if (validateIndex(index,myObject))
         {
             myObject.setMyObject(myArrayList[index]);
         }
@@ -57,19 +59,15 @@ public class ArrayList implements List
     /**
      * Method to validate that index provided to update ArrayList is valid
      * If the index is negative or greater or equal than the size of
-     * the list, then an appropriate error must be returned.
+     * the list, then an appropriate error is returned.
      * @param index the position at which ArrayList is to be updated
      * @param myObject ReturnObjectImpl that will record error message if index is not valid
      * @return true if index is valid and false otherwise
      */
     private boolean validateIndex(int index, ReturnObjectImpl myObject)
     {
-        if(isEmpty())
-        {
-            myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
-            return false;
-        }
-        else if(index>items-1||index <0)
+
+        if(index>items-1||index <0)
         {
             myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
             return false;
@@ -84,20 +82,38 @@ public class ArrayList implements List
     {
         ReturnObject myObject = new ReturnObjectImpl();
         myObject = get(index);
-        for( int i = index; i<=items-1; i++)
-        {
-            move(index+1,index);
+        if(!myObject.hasError()) {
+            shift(index, -1);
+            myArrayList[items - 1] = null;
+            items--;
         }
-        myArrayList[items-1] = null;
-        items--;
         return myObject;
     }
+
     public ReturnObject add(int index, Object item)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
-        //validateIndex(index,myObject);
-
-        items++;
+        validateIndex(index,myObject);
+        if (validateIndex(index,myObject))
+        {
+            if (item !=null)
+            {
+                if(items==myArrayList.length)
+                {
+                    growMyArray();
+                }
+                if(index!=items)
+                {
+                    shift(index,1);
+                }
+                myArrayList[index]=item;
+                items++;
+            }
+            else
+            {
+                myObject.setErrorMessage(ErrorMessage.INVALID_ARGUMENT);
+            }
+        }
         return myObject;
     }
     public ReturnObject add(Object item)
@@ -107,9 +123,32 @@ public class ArrayList implements List
         items++;
         return myObject;
     }
-    private void move(int from, int to)
-    {
-        myArrayList[to] = myArrayList[from];
-    }
 
+    /**
+     * doubles size of myArrayList once it is full
+     */
+    private void growMyArray()
+    {
+        Object [] myNewArrayList = new Object [myArrayList.length*2];
+        for( int i = 0; i<=items-1; i++)
+        {
+            myNewArrayList[i]=myArrayList[i];
+        }
+        myArrayList=myNewArrayList;
+    }
+    private void shift(int fromIndex, int stepSize)
+    {
+        for (int i = fromIndex; i <= items; i++)
+        {
+            if (stepSize>0)
+            {
+                myArrayList[i] = myArrayList[i + stepSize*-1];
+            }
+            else
+            {
+                myArrayList[i] = myArrayList[i + stepSize*-1];
+            }
+
+        }
+    }
 }

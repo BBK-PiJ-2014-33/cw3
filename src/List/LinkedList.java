@@ -4,7 +4,7 @@ import Support.*;
 public class LinkedList implements List
 {
     private ObjectNode myFirstObject;
-    private int size;
+    private int items;
     public LinkedList()
     {
         myFirstObject=null;
@@ -23,12 +23,12 @@ public class LinkedList implements List
     }
     public int size()
     {
-        return size;
+        return items;
     }
     public ReturnObject get(int index)
     {
         ReturnObjectImpl myResultObject = new ReturnObjectImpl();
-        if(index>size-1)
+        if(index>items-1)
         {
             myResultObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
@@ -45,7 +45,7 @@ public class LinkedList implements List
     {
         if(myFirstObject!=null)
         {
-            size=size--;
+            items--;
         }
         ReturnObject myObject = new ReturnObjectImpl();
 
@@ -53,7 +53,7 @@ public class LinkedList implements List
     }
     public ReturnObject add(int index, Object item)
     {
-        size = size++;
+        items++;
 
         ReturnObject myObject = new ReturnObjectImpl();
 
@@ -61,8 +61,9 @@ public class LinkedList implements List
     }
     public ReturnObject add(Object item)
     {
-     ObjectNode newObject = new ObjectNode(item);
-        size = size++;
+
+        ObjectNode newObject = new ObjectNode(item);
+        items++;
 
         if(isEmpty())
         {
