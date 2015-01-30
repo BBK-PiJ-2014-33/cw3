@@ -1,29 +1,35 @@
 package List;
-import Support.*;
+import Support.ErrorMessage;
+import Support.ReturnObject;
+import Support.ReturnObjectImpl;
 
 public class ArrayList implements List
 {
     private Object [] myArrayList;
-    /**
-     * size is introduced as a field to keep track of size of ArrayList with size being number of non null
-     * items in the list rather than length of ArrayList. It also allows to make implementation of size()
-     * method more efficient removing any need to loop through ArrayList until first null is encountered
-     * in order to discover the size of ArrayList
-     */
-    private int size=0;
 
     /**
-     * ArrayList minimum length is 10. If length of the list needs to exceed 10, list will double each time
-     * list is full
+     * items field is introduced to keep track of non null items in the list.
+     * It allows to make implementation of size()method more efficient
+     * removing any need to loop through ArrayList until first null is encountered
+     * in order to discover the size of ArrayList
      */
-    public ArrayList()
+
+    private int items;
+
+    /**
+     * List is initialised to the size suggested by user. Once size reaches originally initialised it will be
+     * extended by doubling each time list is full
+     */
+
+    public ArrayList(int initialSize)
     {
-        myArrayList = new Object[10];
+        myArrayList = new Object[initialSize];
+        items = 0;
     }
 
     public boolean isEmpty()
     {
-        if(this.size()==0)
+        if(items==0)
         {
             return true;
         }
@@ -34,7 +40,7 @@ public class ArrayList implements List
     }
     public int size()
     {
-        return size;
+        return items;
     }
 
     public ReturnObject get(int index)
@@ -63,7 +69,7 @@ public class ArrayList implements List
             myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
             return false;
         }
-        else if(index>size-1||index <0)
+        else if(index>items-1||index <0)
         {
             myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
             return false;
@@ -78,12 +84,12 @@ public class ArrayList implements List
     {
         ReturnObject myObject = new ReturnObjectImpl();
         myObject = get(index);
-        for( int i = index; i<=size-1; i++)
+        for( int i = index; i<=items-1; i++)
         {
             move(index+1,index);
         }
-        myArrayList[size-1] = null;
-        size--;
+        myArrayList[items-1] = null;
+        items--;
         return myObject;
     }
     public ReturnObject add(int index, Object item)
@@ -91,14 +97,14 @@ public class ArrayList implements List
         ReturnObjectImpl myObject = new ReturnObjectImpl();
         //validateIndex(index,myObject);
 
-        size++;
+        items++;
         return myObject;
     }
     public ReturnObject add(Object item)
     {
         ReturnObject myObject = new ReturnObjectImpl();
 
-        size++;
+        items++;
         return myObject;
     }
     private void move(int from, int to)
