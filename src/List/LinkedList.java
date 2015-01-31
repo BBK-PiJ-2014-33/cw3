@@ -42,6 +42,7 @@ public class LinkedList implements List
             while (count!=index)
             {
                 myNode = myNode.getNext();
+                count++;
             }
             myObject.setMyObject(myNode.getObject());
         }

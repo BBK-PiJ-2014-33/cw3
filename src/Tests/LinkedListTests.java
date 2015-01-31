@@ -83,16 +83,13 @@ public class LinkedListTests {
         output = myReturnObject.getError();
         assertEquals(output, expected);
 
-/**
         //test that correct item is returned
         myList.add("one");
         myList.add("two");
-        expected = "two";
-        myReturnObject = myList.get(2);
+        expected = "one";
+        myReturnObject = myList.get(1);
         output = myReturnObject.getReturnValue();
         assertEquals(output, expected);
- */
-
     }
 
 }
