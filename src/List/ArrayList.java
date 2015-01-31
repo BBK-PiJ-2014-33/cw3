@@ -116,11 +116,23 @@ public class ArrayList implements List
         }
         return myObject;
     }
+    
     public ReturnObject add(Object item)
     {
-        ReturnObject myObject = new ReturnObjectImpl();
-
-        items++;
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+        if (item !=null)
+        {
+            if (items == myArrayList.length)
+            {
+                growMyArray();
+            }
+            myArrayList[items] = item;
+            items++;
+        }
+        else
+        {
+            myObject.setErrorMessage(ErrorMessage.INVALID_ARGUMENT);
+        }
         return myObject;
     }
 
@@ -136,19 +148,33 @@ public class ArrayList implements List
         }
         myArrayList=myNewArrayList;
     }
+
+    /**
+     * shift items in ArrayList stepSize places starting from specified index in array
+     *
+     * @param fromIndex index from which shift starts
+     * @param stepSize if -ve shift items forward reducing number of non null items
+     *                 if +ve shift items back to create space for more non null items
+     *                 can shift more than 1 step and therefore create or remove space
+     *                 for more than 1 item to allow more flexibility if specifications
+     *                 change in future
+     */
     private void shift(int fromIndex, int stepSize)
     {
-        for (int i = fromIndex; i <= items; i++)
+        if (stepSize>0)
         {
-            if (stepSize>0)
+            for (int i = items-1; i <= fromIndex; i--)
+            {
+                myArrayList[i+stepSize] = myArrayList[i];
+            }
+        }
+        else
+        {
+            for (int i = fromIndex; i <= items; i++)
             {
                 myArrayList[i] = myArrayList[i + stepSize*-1];
             }
-            else
-            {
-                myArrayList[i] = myArrayList[i + stepSize*-1];
-            }
-
         }
     }
+
 }
