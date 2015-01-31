@@ -8,8 +8,8 @@ public class LinkedList implements List
     public LinkedList()
     {
         myFirstObject=null;
+        items = 0;
     }
-
     public boolean isEmpty()
     {
         if (myFirstObject==null)
@@ -21,26 +21,55 @@ public class LinkedList implements List
             return false;
         }
     }
+
     public int size()
     {
         return items;
     }
+
     public ReturnObject get(int index)
     {
-        ReturnObjectImpl myResultObject = new ReturnObjectImpl();
-        if(index>items-1)
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+
+        if(isEmpty())
         {
-            myResultObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        else if (validateIndex(index,myObject))
+        {
+            int count = 0;
+            ObjectNode myNode = myFirstObject;
+            while (count!=index)
+            {
+                myNode = myNode.getNext();
+            }
+            myObject.setMyObject(myNode.getObject());
+        }
+        return myObject;
+    }
+
+    /**
+     * Method to validate that index provided to update List is valid
+     * If the index is negative or greater or equal than the size of
+     * the list, then an appropriate error is returned.
+     * @param index the position at which List is to be updated
+     * @param myObject ReturnObjectImpl that will record error message if index is not valid
+     * @return true if index is valid and false otherwise
+     */
+    private boolean validateIndex(int index, ReturnObjectImpl myObject)
+    {
+
+        if(index>items-1||index <0)
+        {
+            myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return false;
         }
         else
         {
-            for (int i = 0; i == 0; i++)
-            {
-                //iterate until get to correct node
-            }
+            return true;
         }
-        return myResultObject;
     }
+
     public ReturnObject remove(int index)
     {
         if(myFirstObject!=null)
@@ -61,25 +90,29 @@ public class LinkedList implements List
     }
     public ReturnObject add(Object item)
     {
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
 
-        ObjectNode newObject = new ObjectNode(item);
-        items++;
-
-        if(isEmpty())
+        if (item !=null)
         {
-            myFirstObject=newObject;
+            ObjectNode newObject = new ObjectNode(item);
+            if(isEmpty())
+            {
+                myFirstObject=newObject;
+            }
+            else
+            {
+                ObjectNode anotherObject = myFirstObject;
+                while(anotherObject.getNext()!=null) {
+                    anotherObject = anotherObject.getNext();
+                }
+                anotherObject.setNext(newObject);
+            }
+            items++;
         }
         else
         {
-            ObjectNode anotherObject = myFirstObject;
-            while(anotherObject.getNext()!=null) {
-                anotherObject = anotherObject.getNext();
-            }
-            anotherObject.setNext(newObject);
+            myObject.setErrorMessage(ErrorMessage.INVALID_ARGUMENT);
         }
-
-        ReturnObject myObject = new ReturnObjectImpl();
         return myObject;
     }
-
 }

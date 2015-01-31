@@ -181,6 +181,6 @@ public class ArrayListTests {
         myReturnObject = null;
         myReturnObject = myList.get(1);
         output = myReturnObject.getReturnValue();
-        assertEquals(output, expected);    
+        assertEquals(output, expected);
     }
 }
