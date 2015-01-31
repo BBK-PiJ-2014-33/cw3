@@ -93,7 +93,6 @@ public class ArrayList implements List
     public ReturnObject add(int index, Object item)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
-        validateIndex(index,myObject);
         if (validateIndex(index,myObject))
         {
             if (item !=null)
@@ -116,7 +115,7 @@ public class ArrayList implements List
         }
         return myObject;
     }
-    
+
     public ReturnObject add(Object item)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();
@@ -163,7 +162,7 @@ public class ArrayList implements List
     {
         if (stepSize>0)
         {
-            for (int i = items-1; i <= fromIndex; i--)
+            for (int i = items-1; i >= fromIndex; i--)
             {
                 myArrayList[i+stepSize] = myArrayList[i];
             }
