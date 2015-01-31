@@ -106,8 +106,6 @@ public class ArrayListTests {
     @Test
     public void addTest()
     {
-
-
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
         //test null object insertion scenario
@@ -148,22 +146,41 @@ public class ArrayListTests {
 
     @Test
     public void removeTest() {
-        /**
-         * Returns the elements at the given position and removes it
-         * from the list. The indeces of elements after the removed
-         * element must be updated accordignly.
-         *
-         * If the index is negative or greater or equal than the size of
-         * the list, then an appropriate error must be returned.
-         *
-         * @param index the position in the list of the item to be retrieved
-         * @return the element or an appropriate error message,
-         *         encapsulated in a Support.ReturnObject
-         */
 
-        //public ReturnObject remove(int index);
+        ReturnObject myReturnObject = new ReturnObjectImpl();
+
+        //test removal of item at -ve index
+        List myList = new ArrayList(3);
+        Object expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+        Object output;
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        myReturnObject = myList.remove(-2);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test removal of item at index greater than the size of the list
+        output = null;
+        myReturnObject = null;
+        myReturnObject = myList.remove(5);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test removal of item at legitimate index and adjustment of
+        //indeces of remaining elements accordingly
+        output = null;
+        expected = "one";
+        myReturnObject = null;
+        myReturnObject = myList.remove(1);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+
+        output = null;
+        expected = "two";
+        myReturnObject = null;
+        myReturnObject = myList.get(1);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);    
     }
-
-
-    
 }

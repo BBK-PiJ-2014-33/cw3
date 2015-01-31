@@ -169,7 +169,7 @@ public class ArrayList implements List
         }
         else
         {
-            for (int i = fromIndex; i <= items; i++)
+            for (int i = fromIndex; i < items-fromIndex; i++)
             {
                 myArrayList[i] = myArrayList[i + stepSize*-1];
             }
