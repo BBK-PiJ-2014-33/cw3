@@ -183,4 +183,24 @@ public class ArrayListTests {
         output = myReturnObject.getReturnValue();
         assertEquals(output, expected);
     }
+    @Test
+    public void validIndexNullTest()
+    {
+        //test to ensure there is no null at valid position (between 0 and size -1) of the List
+
+        ReturnObject myObject = new ReturnObjectImpl();
+        List myList = new ArrayList(3);
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        int listSize;
+        listSize = myList.size();
+
+        for ( int i =0; i>listSize; i++)
+        {
+            myObject = myList.get(i);
+            assertNotNull(myObject.getReturnValue());
+        }
+
+    }
 }

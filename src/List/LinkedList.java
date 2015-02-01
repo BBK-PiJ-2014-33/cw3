@@ -73,13 +73,37 @@ public class LinkedList implements List
 
     public ReturnObject remove(int index)
     {
-        if(myFirstObject!=null)
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+
+        if(isEmpty())
         {
+            myObject.setErrorMessage(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        else if (validateIndex(index,myObject))
+        {
+            int count = 0;
+            ObjectNode myNode = myFirstObject;
+            while (count!=index)
+            {
+                myNode = myNode.getNext();
+                count++;
+            }
+            myObject.setMyObject(myNode.getObject());
+            if (myNode.getNext()==null)
+            {
+                //last node in the list
+                myNode.setObjectToNull();
+            }
+            else
+            shift(index);
             items--;
         }
-        ReturnObject myObject = new ReturnObjectImpl();
-
         return myObject;
+    }
+
+    private void shift(int index)
+    {
+
     }
     public ReturnObject add(int index, Object item)
     {

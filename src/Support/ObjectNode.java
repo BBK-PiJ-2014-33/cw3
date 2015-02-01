@@ -21,4 +21,8 @@ public class ObjectNode {
     public void setNext(ObjectNode n) {
         this.next = n;
     }
+    public void setObjectToNull()
+    {
+        this.myObject = null;
+    }
 }
