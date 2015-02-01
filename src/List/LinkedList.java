@@ -84,15 +84,15 @@ public class LinkedList implements List
             int count = 0;
 
             ObjectNode myCurrentNode = myFirstObject;
-            ObjectNode myPreviousNode;
+            ObjectNode myPreviousNode=null;
 
             while (count!=index)
             {
+                myPreviousNode = myCurrentNode;
                 myCurrentNode = myCurrentNode.getNext();
                 count++;
             }
             myObject.setMyObject(myCurrentNode.getObject());
-
             if (index ==0)
             {
                 //if removing first item in the list
@@ -101,19 +101,17 @@ public class LinkedList implements List
             else if (myCurrentNode.getNext()==null)
             {
                 //if removing last item in the list
-                myCurrentNode.setObjectToNull();
+                myPreviousNode.setNext(null);
             }
             else
-            shift(index);
+            {
+                myPreviousNode.setNext(myCurrentNode.getNext());
+            }
             items--;
         }
         return myObject;
     }
 
-    private void shift(int index)
-    {
-
-    }
     public ReturnObject add(int index, Object item)
     {
         ReturnObjectImpl myObject = new ReturnObjectImpl();

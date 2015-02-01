@@ -132,6 +132,46 @@ public class LinkedListTests {
     }
 
     @Test
+    public void removeTest() {
+
+        ReturnObject myReturnObject = new ReturnObjectImpl();
+
+        //test removal of item at -ve index
+        List myList = new LinkedList();
+        Object expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+        Object output;
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        myReturnObject = myList.remove(-2);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test removal of item at index greater than the size of the list
+        output = null;
+        myReturnObject = null;
+        myReturnObject = myList.remove(5);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test removal of item at legitimate index and adjustment of
+        //indeces of remaining elements accordingly
+        output = null;
+        expected = "one";
+        myReturnObject = null;
+        myReturnObject = myList.remove(1);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+
+        output = null;
+        expected = "two";
+        myReturnObject = null;
+        myReturnObject = myList.get(1);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+    }
+
+    @Test
     public void validIndexNullTest()
     {
         //test to ensure there is no null at valid position (between 0 and size -1) of the List
@@ -151,5 +191,4 @@ public class LinkedListTests {
         }
 
     }
-
 }
