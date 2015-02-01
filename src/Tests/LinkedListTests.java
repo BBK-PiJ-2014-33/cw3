@@ -136,8 +136,12 @@ public class LinkedListTests {
 
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
-        //test removal of item at -ve index
         List myList = new LinkedList();
+
+        //test boundary case of removing item from empty list
+        assertNull(myList.remove(0).getReturnValue());
+
+        //test removal of item at -ve index
         Object expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
         Object output;
         myList.add("zero");
@@ -167,6 +171,25 @@ public class LinkedListTests {
         expected = "two";
         myReturnObject = null;
         myReturnObject = myList.get(1);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+
+        //test boundary case of removing item from index 0
+        List myList1 = new LinkedList();
+        output=null;
+        myReturnObject = null;
+        myList1.add("zero");
+        myList1.add("one");
+        myList1.add("two");
+        expected="zero";
+        myReturnObject = myList1.remove(0);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+
+        myReturnObject = null;
+        output=null;
+        expected="one";
+        myReturnObject = myList1.get(0);
         output = myReturnObject.getReturnValue();
         assertEquals(output, expected);
     }
