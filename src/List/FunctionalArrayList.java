@@ -2,8 +2,7 @@ package List;
 
 import Support.*;
 
-public class FunctionalArrayList extends ArrayList implements FunctionalList
-{
+public class FunctionalArrayList extends ArrayList implements FunctionalList {
     public ReturnObject head()
     {
         ReturnObject myObject = new ReturnObjectImpl();
@@ -13,8 +12,17 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList
 
     public FunctionalList rest()
     {
-        FunctionalList myFunctionalList = new FunctionalArrayList();
-        return myFunctionalList;
-    }
+        FunctionalArrayList myFunctionalList = new FunctionalArrayList();
+        FunctionalArrayList myFunctionalListCopy = new FunctionalArrayList();
+        int mySize = myFunctionalList.size();
+        if (mySize >1)
+        {
+            for (int i = 1; i<mySize; i++)
+            {
+                myFunctionalListCopy.add(myFunctionalList.get(i));
+            }
+        }
 
+        return myFunctionalListCopy;
+    }
 }

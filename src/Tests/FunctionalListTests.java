@@ -228,4 +228,32 @@ public class FunctionalListTests {
         output = myObject.getReturnValue();
         assertEquals(output, expected);
     }
+
+    @Test
+    public void restTest()
+    {
+        ReturnObject myObject = new ReturnObjectImpl();
+        FunctionalArrayList myList = new FunctionalArrayList();
+        Object expected;
+        Object output;
+        int myRestListSize;
+
+        for (int i = 0; i < 15; i++) {
+            myList.add(i);
+        }
+
+        FunctionalList myRestList = new FunctionalArrayList();
+        myRestList = myList.rest();
+        myRestListSize = myRestList.size();
+
+        for (int n = 0; n < myRestListSize; n++)
+        {
+
+            expected = myList.get(n+1).getReturnValue();
+            output = myRestList.get(n).getReturnValue();
+            assertEquals(output, expected);
+            expected=null;
+            output = null;
+        }
+    }
 }
