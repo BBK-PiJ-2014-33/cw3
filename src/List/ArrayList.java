@@ -14,16 +14,6 @@ public class ArrayList implements List
 
     private int items;
 
-    /**
-     * List is initialised to the size suggested by user. Once size reaches originally initialised it will be
-     * extended by doubling each time list is full
-     */
-
-    public ArrayList(int initialSize)
-    {
-        myArrayList = new Object[initialSize];
-        items = 0;
-    }
 
     /**
      * List is initialise to default size 10. Once size reaches originally initialised it will be

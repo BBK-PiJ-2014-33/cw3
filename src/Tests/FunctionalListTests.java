@@ -1,15 +1,16 @@
 package Tests;
+
+import List.*;
 import Support.*;
 import org.junit.*;
-import List.*;
 import static org.junit.Assert.*;
 
-public class ArrayListTests {
+public class FunctionalListTests {
 
     @Test
     public void isEmptyTest(){
 
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
 
         boolean outputArrayList;
         boolean expected = true;
@@ -29,7 +30,7 @@ public class ArrayListTests {
     {
         int expectedSize = 2;
         int outputSize;
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         myList.add("test");
         myList.add("test");
         outputSize = myList.size();
@@ -44,7 +45,7 @@ public class ArrayListTests {
         Object output;
 
         //test that appropriate error message is returned when trying to get item from empty list
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         myReturnObject = myList.get(1);
         output = myReturnObject.getError();
         assertEquals(output, expected);
@@ -79,7 +80,7 @@ public class ArrayListTests {
         ReturnObject myReturnObject = new ReturnObjectImpl();
         Object expected = ErrorMessage.INVALID_ARGUMENT;
         Object output;
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         myList.add("test");
         myReturnObject = myList.add(null);
         output = myReturnObject.getError();
@@ -94,7 +95,7 @@ public class ArrayListTests {
 
         //test boundary case when more items than original length on the list added
 
-        List myShortList = new ArrayList();
+        List myShortList = new FunctionalArrayList();
         myShortList.add("test");
         myShortList.add("test");
         myReturnObject = myShortList.add("test");
@@ -109,7 +110,7 @@ public class ArrayListTests {
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
         //test null object insertion scenario
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         Object expected = ErrorMessage.INVALID_ARGUMENT;
         Object output;
         myList.add("zero");
@@ -150,7 +151,7 @@ public class ArrayListTests {
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
         //test removal of item at -ve index
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         Object expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
         Object output;
         myList.add("zero");
@@ -189,7 +190,7 @@ public class ArrayListTests {
         //test to ensure there is no null at valid position (between 0 and size -1) of the List
 
         ReturnObject myObject = new ReturnObjectImpl();
-        List myList = new ArrayList();
+        List myList = new FunctionalArrayList();
         myList.add("zero");
         myList.add("one");
         myList.add("two");
@@ -201,6 +202,30 @@ public class ArrayListTests {
             myObject = myList.get(i);
             assertNotNull(myObject.getReturnValue());
         }
+    }
 
+    @Test
+    public void headTest()
+    {
+        ReturnObject myObject = new ReturnObjectImpl();
+        FunctionalArrayList myList = new FunctionalArrayList();
+        Object expected;
+        Object output;
+
+        //test empty list scenario
+        expected = ErrorMessage.EMPTY_STRUCTURE;
+        myObject = myList.head();
+        output = myObject.getError();
+        assertEquals(output, expected);
+
+        expected=null;
+        myObject = null;
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        expected = "zero";
+        myObject = myList.head();
+        output = myObject.getReturnValue();
+        assertEquals(output, expected);
     }
 }
