@@ -59,6 +59,45 @@ public class LinkedListTests {
         assertEquals(output, expected);
     }
 
+    public void addTest()
+    {
+        ReturnObject myReturnObject = new ReturnObjectImpl();
+
+        //test null object insertion scenario
+        List myList = new LinkedList();
+        Object expected = ErrorMessage.INVALID_ARGUMENT;
+        Object output;
+        myList.add("zero");
+        myList.add("two");
+        myList.add("three");
+        myReturnObject = myList.add(1,null);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test trying to insert using -ve index
+        expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+        myReturnObject = myList.add(-3,"one");
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test trying to insert using index greater than the size of the list
+        myReturnObject = myList.add(4,"one");
+        output = null; //clear previous output to make sure it is not left over from previous test
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test legitimate input and make sure that elements at and after that position updated accordingly
+        expected = "two";
+        myList.add(1,"one");
+        myReturnObject = myList.get(2);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+        expected = "three";
+        myReturnObject = myList.get(3);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+    }
+
     @Test
     public void getTest() {
 
@@ -90,6 +129,27 @@ public class LinkedListTests {
         myReturnObject = myList.get(1);
         output = myReturnObject.getReturnValue();
         assertEquals(output, expected);
+    }
+
+    @Test
+    public void validIndexNullTest()
+    {
+        //test to ensure there is no null at valid position (between 0 and size -1) of the List
+
+        ReturnObject myObject = new ReturnObjectImpl();
+        List myList = new LinkedList();
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        int listSize;
+        listSize = myList.size();
+
+        for ( int i =0; i>listSize; i++)
+        {
+            myObject = myList.get(i);
+            assertNotNull(myObject.getReturnValue());
+        }
+
     }
 
 }

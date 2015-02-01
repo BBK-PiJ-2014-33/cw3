@@ -82,17 +82,26 @@ public class LinkedList implements List
         else if (validateIndex(index,myObject))
         {
             int count = 0;
-            ObjectNode myNode = myFirstObject;
+
+            ObjectNode myCurrentNode = myFirstObject;
+            ObjectNode myPreviousNode;
+
             while (count!=index)
             {
-                myNode = myNode.getNext();
+                myCurrentNode = myCurrentNode.getNext();
                 count++;
             }
-            myObject.setMyObject(myNode.getObject());
-            if (myNode.getNext()==null)
+            myObject.setMyObject(myCurrentNode.getObject());
+
+            if (index ==0)
             {
-                //last node in the list
-                myNode.setObjectToNull();
+                //if removing first item in the list
+                myFirstObject = myCurrentNode.getNext();
+            }
+            else if (myCurrentNode.getNext()==null)
+            {
+                //if removing last item in the list
+                myCurrentNode.setObjectToNull();
             }
             else
             shift(index);
@@ -107,10 +116,39 @@ public class LinkedList implements List
     }
     public ReturnObject add(int index, Object item)
     {
-        items++;
+        ReturnObjectImpl myObject = new ReturnObjectImpl();
+        if (validateIndex(index,myObject))
+        {
+            if (item != null)
+            {
+                if(isEmpty()|| index==items)
+                {
+                    add(item);
+                }
+                else
+                {
+                    int count = 0;
+                    ObjectNode myCurrentNode = myFirstObject;
+                    ObjectNode myPreviousNode = null;
 
-        ReturnObject myObject = new ReturnObjectImpl();
+                    while (count!=index)
+                    {
+                        myPreviousNode = myCurrentNode;
+                        myCurrentNode = myCurrentNode.getNext();
+                        count++;
+                    }
+                    ObjectNode newObject = new ObjectNode(item);
+                    myPreviousNode = newObject;
+                    newObject.setNext(myCurrentNode);
+                    items++;
+                }
+            }
+            else
+            {
+                myObject.setErrorMessage(ErrorMessage.INVALID_ARGUMENT);
+            }
 
+        }
         return myObject;
     }
     public ReturnObject add(Object item)

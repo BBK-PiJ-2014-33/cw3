@@ -25,6 +25,17 @@ public class ArrayList implements List
         items = 0;
     }
 
+    /**
+     * List is initialise to default size 10. Once size reaches originally initialised it will be
+     * extended by doubling each time list is full
+     */
+
+    public ArrayList()
+    {
+        myArrayList = new Object[10];
+        items = 0;
+    }
+
     public boolean isEmpty()
     {
         if(items==0)
