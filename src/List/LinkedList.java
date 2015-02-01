@@ -136,7 +136,7 @@ public class LinkedList implements List
                         count++;
                     }
                     ObjectNode newObject = new ObjectNode(item);
-                    myPreviousNode = newObject;
+                    myPreviousNode.setNext(newObject);
                     newObject.setNext(myCurrentNode);
                     items++;
                 }

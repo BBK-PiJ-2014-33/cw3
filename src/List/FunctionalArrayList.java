@@ -12,8 +12,8 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
 
     public FunctionalList rest()
     {
-        FunctionalArrayList myFunctionalList = new FunctionalArrayList();
-        FunctionalArrayList myFunctionalListCopy = new FunctionalArrayList();
+        FunctionalList myFunctionalList = new FunctionalArrayList();
+        FunctionalList myFunctionalListCopy = new FunctionalArrayList();
         int mySize = myFunctionalList.size();
         if (mySize >1)
         {

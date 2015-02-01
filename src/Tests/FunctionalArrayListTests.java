@@ -5,24 +5,24 @@ import Support.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class LinkedListTests {
+public class FunctionalArrayListTests {
 
     @Test
     public void isEmptyTest(){
 
-        List myList = new LinkedList();
+        List myList = new FunctionalArrayList();
 
-        boolean output;
+        boolean outputArrayList;
         boolean expected = true;
 
-        output = myList.isEmpty();
-        assertEquals(output,expected);
+        outputArrayList = myList.isEmpty();
+        assertEquals(outputArrayList,expected);
 
         expected = false;
 
         myList.add("test");
-        output = myList.isEmpty();
-        assertEquals(output,expected);
+        outputArrayList = myList.isEmpty();
+        assertEquals(outputArrayList,expected);
     }
 
     @Test
@@ -30,11 +30,46 @@ public class LinkedListTests {
     {
         int expectedSize = 2;
         int outputSize;
-        List myList = new LinkedList();
+        List myList = new FunctionalArrayList();
         myList.add("test");
         myList.add("test");
         outputSize = myList.size();
         assertEquals(outputSize,expectedSize);
+    }
+
+    @Test
+    public void getTest() {
+
+        ReturnObject myReturnObject = new ReturnObjectImpl();
+        Object expected = ErrorMessage.EMPTY_STRUCTURE;
+        Object output;
+
+        //test that appropriate error message is returned when trying to get item from empty list
+        List myList = new FunctionalArrayList();
+        myReturnObject = myList.get(1);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        //test that appropriate error message is returned when trying to get item from non existent index
+        expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+        myList.add("zero");
+        myReturnObject = myList.get(-1);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+        myReturnObject = myList.get(2);
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
+
+        //test that correct item is returned
+        myList.add("one");
+        myList.add("two");
+        expected = "two";
+        myReturnObject = myList.get(2);
+        output = myReturnObject.getReturnValue();
+        assertEquals(output, expected);
+
     }
 
     @Test
@@ -45,7 +80,7 @@ public class LinkedListTests {
         ReturnObject myReturnObject = new ReturnObjectImpl();
         Object expected = ErrorMessage.INVALID_ARGUMENT;
         Object output;
-        List myList = new LinkedList();
+        List myList = new FunctionalArrayList();
         myList.add("test");
         myReturnObject = myList.add(null);
         output = myReturnObject.getError();
@@ -57,6 +92,16 @@ public class LinkedListTests {
         myReturnObject = myList.add("test");
         output = myReturnObject.getError();
         assertEquals(output, expected);
+
+        //test boundary case when more items than original length on the list added
+
+        List myShortList = new FunctionalArrayList();
+        myShortList.add("test");
+        myShortList.add("test");
+        myReturnObject = myShortList.add("test");
+        output = myReturnObject.getError();
+        assertEquals(output, expected);
+
     }
 
     @Test
@@ -65,7 +110,7 @@ public class LinkedListTests {
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
         //test null object insertion scenario
-        List myList = new LinkedList();
+        List myList = new FunctionalArrayList();
         Object expected = ErrorMessage.INVALID_ARGUMENT;
         Object output;
         myList.add("zero");
@@ -99,50 +144,14 @@ public class LinkedListTests {
         assertEquals(output, expected);
     }
 
-    @Test
-    public void getTest() {
-
-        ReturnObject myReturnObject = new ReturnObjectImpl();
-        Object expected = ErrorMessage.EMPTY_STRUCTURE;
-        Object output;
-
-        //test that appropriate error message is returned when trying to get item from empty list
-        List myList = new LinkedList();
-        myReturnObject = myList.get(1);
-        output = myReturnObject.getError();
-        assertEquals(output, expected);
-
-        //test that appropriate error message is returned when trying to get item from non existent index
-        expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
-        myList.add("zero");
-        myReturnObject = myList.get(-1);
-        output = myReturnObject.getError();
-        assertEquals(output, expected);
-
-        myReturnObject = myList.get(2);
-        output = myReturnObject.getError();
-        assertEquals(output, expected);
-
-        //test that correct item is returned
-        myList.add("one");
-        myList.add("two");
-        expected = "one";
-        myReturnObject = myList.get(1);
-        output = myReturnObject.getReturnValue();
-        assertEquals(output, expected);
-    }
 
     @Test
     public void removeTest() {
 
         ReturnObject myReturnObject = new ReturnObjectImpl();
 
-        List myList = new LinkedList();
-
-        //test boundary case of removing item from empty list
-        assertNull(myList.remove(0).getReturnValue());
-
         //test removal of item at -ve index
+        List myList = new FunctionalArrayList();
         Object expected = ErrorMessage.INDEX_OUT_OF_BOUNDS;
         Object output;
         myList.add("zero");
@@ -174,34 +183,14 @@ public class LinkedListTests {
         myReturnObject = myList.get(1);
         output = myReturnObject.getReturnValue();
         assertEquals(output, expected);
-
-        //test boundary case of removing item from index 0
-        List myList1 = new LinkedList();
-        output=null;
-        myReturnObject = null;
-        myList1.add("zero");
-        myList1.add("one");
-        myList1.add("two");
-        expected="zero";
-        myReturnObject = myList1.remove(0);
-        output = myReturnObject.getReturnValue();
-        assertEquals(output, expected);
-
-        myReturnObject = null;
-        output=null;
-        expected="one";
-        myReturnObject = myList1.get(0);
-        output = myReturnObject.getReturnValue();
-        assertEquals(output, expected);
     }
-
     @Test
     public void validIndexNullTest()
     {
         //test to ensure there is no null at valid position (between 0 and size -1) of the List
 
         ReturnObject myObject = new ReturnObjectImpl();
-        List myList = new LinkedList();
+        List myList = new FunctionalArrayList();
         myList.add("zero");
         myList.add("one");
         myList.add("two");
@@ -213,6 +202,58 @@ public class LinkedListTests {
             myObject = myList.get(i);
             assertNotNull(myObject.getReturnValue());
         }
+    }
 
+    @Test
+    public void headTest()
+    {
+        ReturnObject myObject = new ReturnObjectImpl();
+        FunctionalArrayList myList = new FunctionalArrayList();
+        Object expected;
+        Object output;
+
+        //test empty list scenario
+        expected = ErrorMessage.EMPTY_STRUCTURE;
+        myObject = myList.head();
+        output = myObject.getError();
+        assertEquals(output, expected);
+
+        expected=null;
+        myObject = null;
+        myList.add("zero");
+        myList.add("one");
+        myList.add("two");
+        expected = "zero";
+        myObject = myList.head();
+        output = myObject.getReturnValue();
+        assertEquals(output, expected);
+    }
+
+    @Test
+    public void restTest()
+    {
+        ReturnObject myObject = new ReturnObjectImpl();
+        FunctionalArrayList myList = new FunctionalArrayList();
+        Object expected;
+        Object output;
+        int myRestListSize;
+
+        for (int i = 0; i < 15; i++) {
+            myList.add(i);
+        }
+
+        FunctionalList myRestList = new FunctionalArrayList();
+        myRestList = myList.rest();
+        myRestListSize = myRestList.size();
+
+        for (int n = 0; n < myRestListSize; n++)
+        {
+
+            expected = myList.get(n+1).getReturnValue();
+            output = myRestList.get(n).getReturnValue();
+            assertEquals(output, expected);
+            expected=null;
+            output = null;
+        }
     }
 }
