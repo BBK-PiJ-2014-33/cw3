@@ -1,6 +1,6 @@
 package Stack;
 
-import List.List;
+import List.*;
 
 /**
  * An implementation of a stack that uses a {@List} as the underlying

@@ -1,6 +1,6 @@
 package Stack;
 
-import Support.ReturnObject;
+import Support.*;
 
 /**
  * An implementation of a stack, a data structure of type LIFO (Last
