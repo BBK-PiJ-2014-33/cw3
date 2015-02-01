@@ -59,8 +59,11 @@ public class LinkedList implements List
      */
     private boolean validateIndex(int index, ReturnObjectImpl myObject)
     {
-
-        if(index>items-1||index <0)
+        if(index==0)
+        {
+            return true;
+        }
+        else if (index>items-1||index <0)
         {
             myObject.setErrorMessage(ErrorMessage.INDEX_OUT_OF_BOUNDS);
             return false;
@@ -122,6 +125,13 @@ public class LinkedList implements List
                 if(isEmpty()|| index==items)
                 {
                     add(item);
+                }
+                else if(index==0)
+                {
+                    ObjectNode newObject = new ObjectNode(item);
+                    newObject.setNext(myFirstObject);
+                    myFirstObject=newObject;
+                    items++;
                 }
                 else
                 {
