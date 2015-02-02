@@ -5,7 +5,7 @@ import List.*;
 
 public class ImprovedStackImpl implements ImprovedStack
 {
-    private Stack myStack;
+    private StackImpl myStack;
     public ImprovedStackImpl()
     {
         List myList = new LinkedList();
@@ -37,32 +37,41 @@ public class ImprovedStackImpl implements ImprovedStack
     {
         return myStack.pop();
     }
-    /**
-     * Returns a copy of this stack with the items reversed, the top
-     * elements on the original stack is at the bottom of the new
-     * stack and viceversa.
-     *
-     * @return a copy of this stack with the items reversed.
-     */
+
     public ImprovedStack reverse()
     {
-       ImprovedStack myStack = new ImprovedStackImpl();
-
-        return myStack;
-
+        ImprovedStack myReversedStack = new ImprovedStackImpl();
+        int mySize = this.size();
+        if (mySize==1)
+        {
+            myReversedStack.push(myStack.top().getReturnValue());
+        }
+        else{
+            for (int i = 0; i<mySize;i++)
+            {
+                myReversedStack.push(myStack.internalList.get(i).getReturnValue());
+            }
+        }
+        return myReversedStack;
     }
 
-    /**
-     * Removes the given object from the stack if it is
-     * there. Multiple instances of the object are all removed.
-     *
-     * Classes implementing this method must use method .equals() to
-     * check whether the item is in the stack or not.
-     *
-     * @param object the object to remove
-     */
     public void remove(Object object)
     {
-
+        ImprovedStack myUpdatedStack = new ImprovedStackImpl();
+        int mySize = this.size();
+        Object myObject;
+        for (int i = 0; i<mySize;i++)
+        {
+            myObject = this.myStack.pop().getReturnValue();
+            if (!myObject.equals(object))
+            {
+                myUpdatedStack.push(myObject);
+            }
+        }
+        mySize = myUpdatedStack.size();
+        for (int n = 0; n<mySize;n++)
+        {
+            this.myStack.push(myUpdatedStack.pop().getReturnValue());
+        }
     }
 }
